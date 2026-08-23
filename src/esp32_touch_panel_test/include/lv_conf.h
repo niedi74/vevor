@@ -4,6 +4,7 @@
 #define LV_COLOR_DEPTH     16
 #define LV_COLOR_16_SWAP   0
 
+/* Use stdlib malloc — LVGL-eigener Allocator ist zu klein für 480×480 */
 #define LV_MEM_CUSTOM      1
 #define LV_MEM_CUSTOM_INCLUDE <stdlib.h>
 #define LV_MEM_CUSTOM_ALLOC   malloc
