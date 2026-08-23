@@ -7,7 +7,8 @@
   2. LVGL-Testscreen mit Touch-Koordinaten-Anzeige
   3. Touch-Events auf Serial (115200)
 
-  Pin-Referenz: https://github.com/moononournation/Arduino_GFX/issues/684
+  Pin-Referenz: https://github.com/alaltitov/Guition-ESP32-S3-4848S040
+                https://github.com/moononournation/Arduino_GFX/issues/684
 */
 
 #include <Arduino.h>
@@ -17,11 +18,12 @@
 
 // ---- Pin-Definitionen Guition ESP32-4848S040 ----
 
-// Backlight
-#define PIN_BL   39
+// Backlight (GPIO38, NOT 39 — 39 is SPI CS for ST7701 init!)
+// Verified via https://github.com/alaltitov/Guition-ESP32-S3-4848S040
+#define PIN_BL   38
 
 // ST7701 SPI-Init-Bus (Software-SPI, nur für Register-Init, nicht für Pixeldaten)
-#define PIN_SPI_CS   39   // active low — shared with BL, active only during init
+#define PIN_SPI_CS   39
 #define PIN_SPI_SCK  48
 #define PIN_SPI_MOSI 47
 
@@ -224,7 +226,7 @@ void setup() {
 
   // Touch I2C init
   Wire.begin(PIN_TOUCH_SDA, PIN_TOUCH_SCL);
-  Wire.setClock(400000);
+  Wire.setClock(100000);  // 100 kHz — GT911 ist damit stabiler (alaltitov-Referenz)
   Serial.print("GT911 I2C Scan: ");
   Wire.beginTransmission(GT911_ADDR);
   Serial.println(Wire.endTransmission() == 0 ? "GEFUNDEN" : "NICHT GEFUNDEN — pruefe Adresse/Pins!");
