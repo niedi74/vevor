@@ -13,6 +13,11 @@ ESP32-Sketch zur direkten Ansteuerung ohne die Original-App.
   Arduino-Sketch (NimBLE-Arduino) zum Scannen, Verbinden, Statusauslesen und
   Steuern (Ein/Aus, ECO, Sperre, Batterieschutz-Stufe, Solltemperatur) über die
   serielle Konsole.
+- [`src/esp32_touch_panel/`](src/esp32_touch_panel/) — Touch-Bedienpanel
+  (PlatformIO, Waveshare ESP32-S3-LCD-1.54", LVGL) als Ersatz für die
+  Handy-App bzw. eine unzugängliche Original-Bedieneinheit: Ein/Aus,
+  Solltemperatur, Ist-Temperatur, Batterie/Spannung, Verbindungsstatus.
+  Details siehe [`src/esp32_touch_panel/CODE.md`](src/esp32_touch_panel/CODE.md).
 
 ## Kompatible Geräte
 
@@ -29,6 +34,11 @@ Getestet gegen ein Gerät `WT-0001`.
 4. Flashen, seriellen Monitor auf 115200 Baud öffnen.
 5. Befehle: `on`, `off`, `eco on`, `eco off`, `lock on`, `lock off`,
    `temp <n>`, `status`.
+
+Für das Touch-Panel stattdessen: `cd src/esp32_touch_panel && pio run -t upload
+-t monitor`. Vorher die Pins in `include/display_config.h` gegen das eigene
+Board prüfen und den Touch-Treiber-Stub in `src/main.cpp` implementieren
+(siehe „Offene Punkte“ in `CODE.md`).
 
 ## Status / offene Punkte
 
